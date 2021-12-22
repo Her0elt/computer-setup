@@ -1,0 +1,27 @@
+- name: Install dependencies
+  become: true
+  apt:
+    name: ["lsb-release", "gnupg","curl","ca-certificates"]
+  tags:
+    - install
+    - docker
+- name: Add Docker's official GPG key
+  shell:  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+  tags: docker
+- name: add Repo
+  shell: echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu  $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+  tags: docker
+- name: update apt
+  shell: apt update
+  tags: docker
+- name: Install docker
+  apt:
+    name: ["docker-ce-cli", "docker-ce" ,"containerd.io"]
+  tags:
+    - docker
+- name: Install docker-compose
+  shell: curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  tags: docker
+- name: chmod docker-compose
+  shell: chmod +x /usr/local/bin/docker-compose
+  tags: docker

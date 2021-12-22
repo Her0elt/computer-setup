@@ -1,0 +1,25 @@
+- hosts: localhost
+  become: true
+  pre_tasks:
+    - name: Update cache
+      apt:
+        update_cache: true
+      tags:
+        - core
+        - install
+        - node
+        - zsh
+        - nvim
+        - docker
+        - java
+        - python
+  tasks:
+    - include: tasks/core-setup.yml
+    - include: tasks/zsh-setup.yml
+    - include: tasks/node-setup.yml
+    - include: tasks/nvim-setup.yml
+    - include: tasks/docker-setup.yml
+    - include: tasks/brave-setup.yml
+    - include: tasks/java-setup.yml
+    - include: tasks/python-setup.yml
+

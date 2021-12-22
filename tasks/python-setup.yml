@@ -1,0 +1,20 @@
+- name: Install dependecies
+  become: true
+  apt:
+    name: ["software-properties-common"]
+  tags:
+    - install
+    - python
+- name: Add repo
+  become: true
+  shell: add-apt-repository ppa:deadsnakes/ppa && apt update
+  tags:
+    - python
+    - install
+- name: Install python3.8
+  apt:
+    name: ["python3.8"]
+  become: true
+  tags:
+    - install
+    - python

@@ -1,0 +1,14 @@
+- name: Install Node
+  apt:
+    name: ['nodejs', 'npm']
+    update_cache: true
+  tags:
+   - node
+   - install
+- name: Install yarn
+  npm:
+    name: yarn
+    global: yes
+  tags:
+    - node
+    - install

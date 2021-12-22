@@ -1,0 +1,48 @@
+- name: Setup dependencies
+  become: true
+  apt:
+    name : ["cmake", "lua5.1", "gettext", "libtool", "libtool-bin", "ninja-build", "autoconf", "automake", "g++", "pkg-config", "unzip", "curl", "doxygen"]
+  tags:
+    - nvim
+- name: Remove neovim
+  shell: rm -rf ~/neovim
+  tags:
+    - install
+    - nvim
+- name: Clone Neovim
+  ansible.builtin.git:
+    repo: 'https://github.com/neovim/neovim.git'
+    dest: "{{ lookup('env', 'HOME') }}/neovim"
+  tags:
+    - install
+    - nvim
+- name: Build neovim
+  shell: "cd {{ lookup('env', 'HOME') }}/neovim && make -j 20"
+  tags:
+    - install
+    - nvim
+- name: Install neovim
+  make:
+    chdir: "{{ lookup('env', 'HOME') }}/neovim"
+    target: install
+  become: true
+  tags:
+    - install
+    - nvim
+- name: Neovim Plugin Development 1
+  become: true
+  apt: name=luarocks
+  tags:
+    - install
+    - nvim
+- name: Neovim Plugin Development 2 luacheck
+  become: true
+  shell: luarocks install luacheck
+  tags:
+    - install
+    - nvim
+- name: Install Vim-Plug
+  shell: curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  tags:
+    - install
+    - nvim
