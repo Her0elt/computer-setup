@@ -1,9 +1,11 @@
 - name: Install zsh
   apt: name=zsh
+  become: true
   tags:
     - zsh
     - install
 - name: Change shell to zsh
+  become: true
   shell: chsh -s `which zsh`
   tags:
     - zsh
@@ -17,6 +19,11 @@
   ansible.builtin.git:
     repo: 'https://github.com/zsh-users/zsh-autosuggestions'
     dest: '~/.oh-my-zsh/plugins/zsh-autosuggestions'
+  tags:
+    - zsh
+    - install
+- name: Install fzf
+  shell: git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
   tags:
     - zsh
     - install

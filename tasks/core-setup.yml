@@ -1,3 +1,6 @@
+- name: Update apt
+  shell: apt update && apt upgrade -y
+  become: true
 - name: Install System Packages 1 (build-essential, cmake, pkg-config, pthread)
   become: true
   apt:

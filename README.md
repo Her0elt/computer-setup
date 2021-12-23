@@ -8,18 +8,38 @@ To preform all the installations and configurations we use [Ansible](https://doc
 
 ## Usage
 
-### All install commands might need sudo aswell before the actual command
+### All install commands might need --ask-become-pass this is asking for your root passord and is used to install stuff with apt
 
 To preform a full installation you can use all
 
 ```
-ansible-playbook local.yml
+ansible-playbook --ask-vault-pass --ask-become-pass local.yml
+
+or
+
+make run
 ```
 Or if you don't want to clone the repo you can run
 
 ```
-ansible-pull -U https://github.com/her0elt/computer-setup.git
+ansible-pull ---ask-vault-pass -ask-become-pass -U https://github.com/her0elt/computer-setup.git
+
+or
+
+make pull
 ```
+
+To setup a new pc use
+
+```
+./setup-new
+
+or
+
+make new
+
+```
+The --ask-vault-pass is for installing ssh keys which are encrypted and needs to be decrypted before being setup
 
 This will preform all the tasks included in the tasks folder
 

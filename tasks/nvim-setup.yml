@@ -18,14 +18,15 @@
     - nvim
 - name: Build neovim
   shell: "cd {{ lookup('env', 'HOME') }}/neovim && make -j 20"
+  become: true
   tags:
     - install
     - nvim
 - name: Install neovim
+  become: true
   make:
     chdir: "{{ lookup('env', 'HOME') }}/neovim"
     target: install
-  become: true
   tags:
     - install
     - nvim
@@ -36,8 +37,8 @@
     - install
     - nvim
 - name: Neovim Plugin Development 2 luacheck
-  become: true
   shell: luarocks install luacheck
+  become: true
   tags:
     - install
     - nvim

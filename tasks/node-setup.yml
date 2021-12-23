@@ -1,4 +1,5 @@
 - name: Install Node
+  become: true
   apt:
     name: ['nodejs', 'npm']
     update_cache: true
@@ -6,6 +7,7 @@
    - node
    - install
 - name: Install yarn
+  become: true
   npm:
     name: yarn
     global: yes
