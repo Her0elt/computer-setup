@@ -5,6 +5,7 @@
   tags:
     - nvim
 - name: Remove neovim
+  become: true
   shell: rm -rf ~/neovim
   tags:
     - install
