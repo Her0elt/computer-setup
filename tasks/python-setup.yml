@@ -7,7 +7,7 @@
     - python
 - name: Install python3.8
   apt:
-    name: ["python3.8"]
+    name: ["python3"]
   become: true
   tags:
     - install

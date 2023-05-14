@@ -1,12 +1,13 @@
-- name: Setup dependencies
-  become: true
-  apt:
-    name : ["cmake", "lua5.1", "gettext", "libtool", "libtool-bin", "ninja-build", "autoconf", "automake", "g++", "pkg-config", "unzip", "curl", "doxygen"]
-  tags:
-    - nvim
 - name: Remove neovim
   become: true
   shell: rm -rf ~/neovim
+  tags:
+    - install
+    - nvim
+- name: Get Packer
+  ansible.builtin.git:
+    repo: 'https://github.com/wbthomason/packer.nvim'
+    dest: "{{ lookup('env', 'HOME') }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
   tags:
     - install
     - nvim
