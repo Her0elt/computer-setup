@@ -80,3 +80,14 @@ or
 
 ansible-playbook --tags <your-test-tag> local.yml
 ```
+
+## MacOS
+
+```
+docker run --rm -it $(docker build -q -f MacOS.Dockerfile .) bash
+```
+
+```
+ansible-playbook --ask-vault-pass local.yml
+
+```

@@ -1,0 +1,49 @@
+- hosts: localhost
+  vars:
+    source_key: "./.ssh/id_ed25519"
+    dest_key: "{{ lookup('env' , 'HOME') }}/.ssh/id_ed25519"
+  pre_tasks:
+    - name: Ensuring Homebrew Is Installed
+      stat:
+        path: /usr/local/bin/brew
+  tasks:
+    - import_tasks: tasks/core-setup.yml
+      vars:
+        brew_cask_packages:
+          - docker
+          - dropbox
+          - brave
+          - google-drive
+          - google-hangouts
+          - iterm2
+          - slack
+          - spotify
+          - alacritty
+          - nikitabobko/tap/aerospace
+        brew_packages:
+          - autoconf
+          - neovim
+          - consul
+          - docker-compose
+          - docker-machine
+          - doxygen
+          - git
+          - go
+          - fzf
+          - nmap
+          - nomad
+          - openssl
+          - packer
+          - pyenv
+          - python
+          - rust
+          - openjdk
+          - tmux
+          - wget
+          - zsh
+          - zsh-syntax-highlighting
+          - zsh-auto-complete
+
+    - import_tasks: tasks/ssh-setup.yml
+    - import_tasks: tasks/.dotfiles-setup.yml
+
